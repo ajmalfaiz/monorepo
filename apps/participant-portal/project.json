@@ -1,0 +1,91 @@
+{
+  "name": "participant-portal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/participant-portal/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/participant-portal",
+        "index": "apps/participant-portal/src/index.html",
+        "main": "apps/participant-portal/src/main.ts",
+        "polyfills": "apps/participant-portal/src/polyfills.ts",
+        "tsConfig": "apps/participant-portal/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/participant-portal/src/favicon.ico",
+          "apps/participant-portal/src/assets"
+        ],
+        "styles": ["apps/participant-portal/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/participant-portal/src/environments/environment.ts",
+              "with": "apps/participant-portal/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "participant-portal:build:production"
+        },
+        "development": {
+          "browserTarget": "participant-portal:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4100
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "participant-portal:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/participant-portal/**/*.ts",
+          "apps/participant-portal/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
